@@ -141,3 +141,111 @@ Copy code
   "qty": 120,
   "clientOrderId": "cli-20251010-0001"
 }
+
+Response
+
+{
+  "id": "uuid",
+  "symbol": "BND",
+  "side": "buy",
+  "qty": 120,
+  "status": "pending",
+  "avgPrice": null,
+  "createdAt": "2025-10-10T08:30:00.000Z"
+}
+
+2️⃣ List Orders
+
+GET /orders?page=1&pageSize=10&symbol=BND&status=pending
+
+Response
+
+{
+  "items": [...],
+  "page": 1,
+  "pageSize": 10,
+  "total": 25
+}
+
+3️⃣ Apply Fill (Webhook Simulation)
+
+POST /fills
+
+{
+  "orderId": "uuid",
+  "price": 73.5,
+  "qty": 100,
+  "timestamp": "2025-10-10T09:00:00Z"
+}
+
+
+Response
+
+{
+  "message": "Fill applied successfully",
+  "orderStatus": "partially_filled"
+}
+
+4️⃣ Get Portfolio Snapshot
+
+GET /portfolio
+
+Response
+
+{
+  "positions": [
+    {
+      "symbol": "BND",
+      "qty": 120,
+      "avgCost": 73.8,
+      "unrealizedPnL": -12.0,
+      "updatedAt": "2025-10-10T09:10:00Z"
+    }
+  ],
+  "totals": {
+    "value": 8856.0,
+    "pnl": -12.0
+  }
+}
+
+🧰 Environment Variables
+Variable	Description	Default
+PORT	Server port	4000
+NODE_ENV	Environment	development
+DATABASE_URL	PostgreSQL connection string	(see below)
+LOG_LEVEL	Logging level	debug
+🐳 Docker Setup
+Prerequisites
+
+Docker
+
+Docker Compose
+
+Run Everything
+docker-compose up --build
+
+
+✅ Starts:
+
+PostgreSQL @ localhost:5432
+
+Prisma Studio @ http://localhost:5555
+
+API @ http://localhost:4000
+
+💻 Run Locally (Without Docker)
+# 1. Install dependencies
+npm install
+
+# 2. Setup DB (Postgres or SQLite)
+npx prisma migrate dev --name init
+
+# 3. Seed data (optional)
+npm run seed
+
+# 4. Run app
+npm run dev
+
+🧪 Testing
+Run all tests
+npm run test
