@@ -1,0 +1,30 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+/generated/prisma
+
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Environment files
+.env
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Prisma
+prisma/migrations/
+
+# Test coverage
+coverage/
